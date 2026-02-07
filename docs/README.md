@@ -41,7 +41,7 @@ implementation "io.github.chichizhang0510:human-duration:0.1.0"
 
 
 ## Maven Central
-The library is published to Maven Central: https://repo1.maven.org/maven2/io/github/chichizhang0510/human-duration/
+The library is published to Maven Central: [https://repo1.maven.org/maven2/io/github/chichizhang0510/human-duration/](https://central.sonatype.com/artifact/io.github.chichizhang0510/human-duration)
 
 
 
