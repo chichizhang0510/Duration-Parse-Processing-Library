@@ -11,5 +11,7 @@
 <file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationMath.java">
 </file>
 <file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/exception/InvalidDurationFormatException.java">
+<error line="9" severity="warning" message="Javadoc tag &apos;@param&apos; should be preceded with an empty line." source="com.puppycrawl.tools.checkstyle.checks.javadoc.RequireEmptyLineBeforeBlockTagGroupCheck"/>
+<error line="18" severity="warning" message="Javadoc tag &apos;@param&apos; should be preceded with an empty line." source="com.puppycrawl.tools.checkstyle.checks.javadoc.RequireEmptyLineBeforeBlockTagGroupCheck"/>
 </file>
 </checkstyle>

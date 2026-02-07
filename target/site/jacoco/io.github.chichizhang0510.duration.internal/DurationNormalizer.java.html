@@ -80,17 +80,32 @@ public class DurationNormalizer {
    */
 <span class="fc" id="L81">  public record NormalizedParts(</span>
       int sign, long weeks, long days, long hours, long minutes, long seconds) {
-
+    
+    /**
+     * Returns a normalized parts with zero weeks, days, hours, minutes, and seconds.
+     *
+     * @return the normalized parts
+     */
     public static NormalizedParts zero() {
-<span class="fc" id="L85">      return new NormalizedParts(1, 0L, 0L, 0L, 0L, 0L);</span>
+<span class="fc" id="L90">      return new NormalizedParts(1, 0L, 0L, 0L, 0L, 0L);</span>
     }
 
+    /**
+     * Returns true if the normalized parts are zero.
+     *
+     * @return true if the normalized parts are zero
+     */
     public boolean isZero() {
-<span class="fc bfc" id="L89" title="All 10 branches covered.">      return weeks == 0 &amp;&amp; days == 0 &amp;&amp; hours == 0 &amp;&amp; minutes == 0 &amp;&amp; seconds == 0;</span>
+<span class="fc bfc" id="L99" title="All 10 branches covered.">      return weeks == 0 &amp;&amp; days == 0 &amp;&amp; hours == 0 &amp;&amp; minutes == 0 &amp;&amp; seconds == 0;</span>
     }
 
+    /**
+     * Returns true if the normalized parts are negative.
+     *
+     * @return true if the normalized parts are negative
+     */
     public boolean isNegative() {
-<span class="fc bfc" id="L93" title="All 2 branches covered.">      return sign &lt; 0;</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">      return sign &lt; 0;</span>
     }
   }
 }

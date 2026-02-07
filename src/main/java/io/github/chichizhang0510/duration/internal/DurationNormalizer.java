@@ -80,15 +80,30 @@ public class DurationNormalizer {
    */
   public record NormalizedParts(
       int sign, long weeks, long days, long hours, long minutes, long seconds) {
-
+    
+    /**
+     * Returns a normalized parts with zero weeks, days, hours, minutes, and seconds.
+     *
+     * @return the normalized parts
+     */
     public static NormalizedParts zero() {
       return new NormalizedParts(1, 0L, 0L, 0L, 0L, 0L);
     }
 
+    /**
+     * Returns true if the normalized parts are zero.
+     *
+     * @return true if the normalized parts are zero
+     */
     public boolean isZero() {
       return weeks == 0 && days == 0 && hours == 0 && minutes == 0 && seconds == 0;
     }
 
+    /**
+     * Returns true if the normalized parts are negative.
+     *
+     * @return true if the normalized parts are negative
+     */
     public boolean isNegative() {
       return sign < 0;
     }

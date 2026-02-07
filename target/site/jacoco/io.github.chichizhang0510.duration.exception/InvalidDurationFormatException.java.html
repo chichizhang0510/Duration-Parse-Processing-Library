@@ -3,14 +3,23 @@
 /** Exception thrown when an invalid duration format is encountered. */
 public class InvalidDurationFormatException extends IllegalArgumentException {
 
-  /** Constructs a new InvalidDurationFormatException with the specified message. */
+  /** 
+   * Constructs a new InvalidDurationFormatException with the specified message. 
+   * 
+   * @param message the message to be set
+   */
   public InvalidDurationFormatException(String message) {
-<span class="fc" id="L8">    super(message);</span>
-<span class="fc" id="L9">  }</span>
+<span class="fc" id="L12">    super(message);</span>
+<span class="fc" id="L13">  }</span>
 
-  /** Constructs a new InvalidDurationFormatException with the specified message and cause. */
+  /** 
+   * Constructs a new InvalidDurationFormatException with the specified message and cause. 
+   * 
+   * @param message the message to be set
+   * @param cause the cause of the exception
+   * */
   public InvalidDurationFormatException(String message, Throwable cause) {
-<span class="fc" id="L13">    super(message, cause);</span>
-<span class="fc" id="L14">  }</span>
+<span class="fc" id="L22">    super(message, cause);</span>
+<span class="fc" id="L23">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
