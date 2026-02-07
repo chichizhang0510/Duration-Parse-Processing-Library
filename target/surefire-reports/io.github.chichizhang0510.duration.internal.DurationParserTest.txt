@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: io.github.chichizhang0510.duration.internal.DurationParserTest
 -------------------------------------------------------------------------------
-Tests run: 31, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 s -- in io.github.chichizhang0510.duration.internal.DurationParserTest
+Tests run: 31, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.389 s -- in io.github.chichizhang0510.duration.internal.DurationParserTest

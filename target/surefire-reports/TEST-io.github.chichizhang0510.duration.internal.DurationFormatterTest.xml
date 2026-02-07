@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.022" tests="23" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.031" tests="23" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206231940456_3.jar /Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire 2026-02-06T23-19-40_416-jvmRun1 surefire-20260206231940456_1tmp surefire_0-20260206231940456_2tmp"/>
+    <property name="sun.java.command" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206232249285_3.jar /Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire 2026-02-06T23-22-49_241-jvmRun1 surefire-20260206232249285_1tmp surefire_0-20260206232249285_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/test-classes:/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/classes:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:/Users/chichizhang/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/chichizhang/.m2/repository/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar:/Users/chichizhang/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.0/junit-jupiter-params-5.10.0.jar:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar:/Users/chichizhang/.m2/repository/org/junit/platform/junit-platform-engine/1.10.0/junit-platform-engine-1.10.0.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206231940456_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206232249285_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21.0.7"/>
@@ -59,26 +59,26 @@
     <property name="java.class.version" value="65.0"/>
   </properties>
   <testcase name="toNormalizedString_negativeHasLeadingMinus" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.002"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[1]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[2]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[3]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[4]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[5]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[6]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[1]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.002"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[2]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[3]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[4]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[5]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[6]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
   <testcase name="toNormalizedString_formatsCorrectly(String, String)[7]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
   <testcase name="toNormalizedString_formatsCorrectly(String, String)[8]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[9]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
-  <testcase name="toNormalizedString_formatsCorrectly(String, String)[10]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[9]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
+  <testcase name="toNormalizedString_formatsCorrectly(String, String)[10]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
   <testcase name="toNormalizedString_skipsZeroUnits" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
-  <testcase name="format_negativeHasLeadingMinus" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.002"/>
-  <testcase name="format_longMinValue_throws" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
+  <testcase name="format_negativeHasLeadingMinus" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.003"/>
+  <testcase name="format_longMinValue_throws" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
   <testcase name="format_humanReadablePluralization(String, String)[1]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
-  <testcase name="format_humanReadablePluralization(String, String)[2]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
-  <testcase name="format_humanReadablePluralization(String, String)[3]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
+  <testcase name="format_humanReadablePluralization(String, String)[2]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
+  <testcase name="format_humanReadablePluralization(String, String)[3]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
   <testcase name="format_humanReadablePluralization(String, String)[4]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
   <testcase name="format_humanReadablePluralization(String, String)[5]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
   <testcase name="format_humanReadablePluralization(String, String)[6]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
   <testcase name="format_humanReadablePluralization(String, String)[7]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
-  <testcase name="format_humanReadablePluralization(String, String)[8]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
+  <testcase name="format_humanReadablePluralization(String, String)[8]" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.001"/>
   <testcase name="format_skipsZeroUnits" classname="io.github.chichizhang0510.duration.internal.DurationFormatterTest" time="0.0"/>
 </testsuite>
