@@ -1,0 +1,6 @@
+io/github/chichizhang0510/duration/internal/DurationMathTest.class
+io/github/chichizhang0510/duration/internal/DurationFormatterTest.class
+io/github/chichizhang0510/duration/exception/InvalidDurationFormatExceptionTest.class
+io/github/chichizhang0510/duration/internal/DurationParserTest.class
+io/github/chichizhang0510/duration/DurationTest.class
+io/github/chichizhang0510/duration/internal/DurationNormalizerTest.class

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Duration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Human Duration</a> &gt; <a href="index.source.html" class="el_package">io.github.chichizhang0510.duration</a> &gt; <span class="el_source">Duration.java</span></div><h1>Duration.java</h1><pre class="source lang-java linenums">package io.github.chichizhang0510.duration;
+
+import io.github.chichizhang0510.duration.internal.DurationParser;
+import io.github.chichizhang0510.duration.internal.DurationFormatter;
+import io.github.chichizhang0510.duration.internal.DurationMath;
+import io.github.chichizhang0510.duration.exception.InvalidDurationFormatException;
+
+import java.util.Objects;
+
+/**
+ * A duration represents a period of time.
+ * It is immutable and thread-safe.
+ */
+public final class Duration implements Comparable&lt;Duration&gt; {
+    private final long totalSeconds;
+
+    /**
+     * Parses a human-readable duration string (e.g. &quot;2h30m&quot;, &quot;1d 12h&quot;, &quot;-90s&quot;).
+     *
+     * @param input duration string
+     * @throws InvalidDurationFormatException if the input is not a valid duration format
+     */
+    public Duration(String input) {
+<span class="fc" id="L24">        this(DurationParser.parseToTotalSeconds(input));</span>
+<span class="fc" id="L25">    }</span>
+
+    /**
+     * Internal constructor used by factories and operations.
+     */
+<span class="fc" id="L30">    Duration(long totalSeconds) {</span>
+<span class="fc" id="L31">        this.totalSeconds = totalSeconds;</span>
+<span class="fc" id="L32">    }</span>
+
+    long totalSeconds() {
+<span class="fc" id="L35">        return totalSeconds;</span>
+    }
+    
+
+    // ---------- Conversions (total values) ----------
+
+    /**
+     * Returns the total number of milliseconds represented by this duration.
+     */
+    public long toMilliseconds() {
+<span class="fc" id="L45">        return Math.multiplyExact(totalSeconds, 1000L);</span>
+    }
+
+    /**
+     * Returns the total number of seconds represented by this duration.
+     */
+    public long toSeconds() {
+<span class="fc" id="L52">        return totalSeconds;</span>
+    }
+
+    /**
+     * Returns the total number of minutes represented by this duration.
+     */
+    public long toMinutes() {
+<span class="fc" id="L59">        return totalSeconds / 60L;</span>
+    }
+
+    /**
+     * Returns the total number of hours represented by this duration.
+     */
+    public long toHours() {
+<span class="fc" id="L66">        return totalSeconds / 3600L;</span>
+    }
+
+    /**
+     * Returns the total number of days represented by this duration.
+     */
+    public long toDays() {
+<span class="fc" id="L73">        return totalSeconds / 86400L;</span>
+    }
+
+    /**
+     * Returns the total number of weeks represented by this duration.
+     */
+    public long toWeeks() {
+<span class="fc" id="L80">        return totalSeconds / 604800L;</span>
+    }
+
+
+    // ---------- Arithmetic ----------
+    /**
+     * Returns a new duration that is the sum of this duration and another duration.
+     */
+    public Duration add(Duration other) {
+<span class="fc" id="L89">        Objects.requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc" id="L90">        return DurationMath.add(this, other);</span>
+    }
+
+    /**
+     * Returns a new duration that is the difference of this duration and another duration.
+     */
+    public Duration subtract(Duration other) {
+<span class="fc" id="L97">        Objects.requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc" id="L98">        return DurationMath.subtract(this, other);</span>
+    }
+
+
+    // ---------- Formatting ----------
+
+    /**
+     * Returns a string representation of this duration.
+     * &lt;p&gt;
+     * Design choice: return normalized compact form for stability.
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L111">        return toNormalizedString();</span>
+    }
+
+    /**
+     * Returns a normalized compact representation, e.g. &quot;1m30s&quot;.
+     */
+    public String toNormalizedString() {
+<span class="fc" id="L118">        return DurationFormatter.toNormalizedString(this);</span>
+    }
+
+    /**
+     * Returns a human-readable representation, e.g. &quot;2 hours 30 minutes&quot;.
+     */
+    public String format() {
+<span class="fc" id="L125">        return DurationFormatter.format(this);</span>
+    }
+
+
+    // ---------- Comparable / equality ----------
+
+    /**
+     * Compares this duration to another duration.
+     */
+    @Override
+    public int compareTo(Duration other) {
+<span class="fc" id="L136">        Objects.requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc" id="L137">        return Long.compare(this.totalSeconds, other.totalSeconds);</span>
+    }
+
+    /**
+     * Returns true if this duration is equal to another duration.
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">        if (!(o instanceof Duration)) return false;</span>
+<span class="fc" id="L146">        Duration other = (Duration) o;</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        return this.totalSeconds == other.totalSeconds;</span>
+    }
+
+    /**
+     * Returns the hash code of this duration.
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L155">        return Objects.hash(totalSeconds);</span>
+    }
+
+
+    // ---------- Static factories ----------
+    
+    /**
+     * Returns a new duration from a given number of milliseconds.
+     */
+    public static Duration fromMilliseconds(long milliseconds) {
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        if (milliseconds % 1000L != 0L) {</span>
+<span class="fc" id="L166">            throw new InvalidDurationFormatException(&quot;Milliseconds must be a multiple of 1000 (no fractional seconds).&quot;);</span>
+        }
+<span class="fc" id="L168">        return new Duration(milliseconds / 1000L);</span>
+    }
+
+    /**
+     * Returns a new duration from a given number of seconds.
+     */
+    public static Duration fromSeconds(long seconds) {
+<span class="fc" id="L175">        return new Duration(seconds);</span>
+    }
+
+    /**
+     * Returns a new duration from a given number of minutes.
+     */
+    public static Duration fromMinutes(long minutes) {
+<span class="fc" id="L182">        return new Duration(Math.multiplyExact(minutes, 60L));</span>
+    }
+
+    /**
+     * Returns a new duration from a given number of hours.
+     */
+    public static Duration fromHours(long hours) {
+<span class="fc" id="L189">        return new Duration(Math.multiplyExact(hours, 3600L));</span>
+    }
+
+    /**
+     * Returns a new duration from a given number of days.
+     */
+    public static Duration fromDays(long days) {
+<span class="fc" id="L196">        return new Duration(Math.multiplyExact(days, 86400L));</span>
+    }
+
+    /**
+     * Returns a new duration from a given number of weeks.
+     */
+    public static Duration fromWeeks(long weeks) {
+<span class="fc" id="L203">        return new Duration(Math.multiplyExact(weeks, 604800L));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

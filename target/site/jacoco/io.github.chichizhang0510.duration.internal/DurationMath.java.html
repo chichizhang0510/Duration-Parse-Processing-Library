@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DurationMath.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Human Duration</a> &gt; <a href="index.source.html" class="el_package">io.github.chichizhang0510.duration.internal</a> &gt; <span class="el_source">DurationMath.java</span></div><h1>DurationMath.java</h1><pre class="source lang-java linenums">package io.github.chichizhang0510.duration.internal;
+
+import io.github.chichizhang0510.duration.Duration;
+import io.github.chichizhang0510.duration.exception.InvalidDurationFormatException;
+
+import java.util.Objects;
+
+public class DurationMath {
+
+    private DurationMath() {}
+    
+    /**
+     * Adds two durations.
+     * @param a the first duration
+     * @param b the second duration
+     * @return the result duration
+     */
+    public static Duration add(Duration a, Duration b) {
+<span class="fc" id="L19">        Objects.requireNonNull(a, &quot;a&quot;);</span>
+<span class="fc" id="L20">        Objects.requireNonNull(b, &quot;b&quot;);</span>
+
+<span class="fc" id="L22">        long resultSeconds = addExact(extractTotalSeconds(a), extractTotalSeconds(b));</span>
+<span class="fc" id="L23">        return Duration.fromSeconds(resultSeconds);</span>
+    }
+
+    /**
+     * Subtracts two durations.
+     * @param a the first duration
+     * @param b the second duration
+     * @return the result duration
+     */
+    public static Duration subtract(Duration a, Duration b) {
+<span class="fc" id="L33">        Objects.requireNonNull(a, &quot;a&quot;);</span>
+<span class="fc" id="L34">        Objects.requireNonNull(b, &quot;b&quot;);</span>
+
+<span class="fc" id="L36">        long resultSeconds = subtractExact(extractTotalSeconds(a), extractTotalSeconds(b));</span>
+<span class="fc" id="L37">        return Duration.fromSeconds(resultSeconds);</span>
+    }
+
+    // ------------------- Helpers -------------------
+
+    /**
+     * Extracts the total seconds from a duration.
+     * @param duration the duration
+     * @return the total seconds
+     */
+    private static long extractTotalSeconds(Duration duration) {
+<span class="fc" id="L48">        return duration.toSeconds();</span>
+    }
+
+    /**
+     * Adds two long values.
+     * @param x the first value
+     * @param y the second value
+     * @return the result
+     */
+    private static long addExact(long x, long y) {
+        try {
+<span class="fc" id="L59">            return Math.addExact(x, y);</span>
+<span class="fc" id="L60">        } catch (ArithmeticException e) {</span>
+<span class="fc" id="L61">            throw new InvalidDurationFormatException(&quot;Duration arithmetic overflow (add).&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Subtracts two long values.
+     * @param x the first value
+     * @param y the second value
+     * @return the result
+     */
+    private static long subtractExact(long x, long y) {
+        try {
+<span class="fc" id="L73">            return Math.subtractExact(x, y);</span>
+<span class="fc" id="L74">        } catch (ArithmeticException e) {</span>
+<span class="fc" id="L75">            throw new InvalidDurationFormatException(&quot;Duration arithmetic overflow (subtract).&quot;, e);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

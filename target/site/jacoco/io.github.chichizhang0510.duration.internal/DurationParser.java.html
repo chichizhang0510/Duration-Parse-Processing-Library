@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DurationParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Human Duration</a> &gt; <a href="index.source.html" class="el_package">io.github.chichizhang0510.duration.internal</a> &gt; <span class="el_source">DurationParser.java</span></div><h1>DurationParser.java</h1><pre class="source lang-java linenums">package io.github.chichizhang0510.duration.internal;
+
+import io.github.chichizhang0510.duration.exception.InvalidDurationFormatException;
+
+import java.util.EnumSet;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Utility class for parsing human-readable duration strings into total seconds.
+ *
+ * Supported units: w, d, h, m, s
+ * Rules:
+ * - Units must appear in descending order: w -&gt; d -&gt; h -&gt; m -&gt; s
+ * - Each unit appears at most once
+ * - Whitespace between units is optional
+ * - No decimals
+ * - Negative durations supported with a leading '-'
+ */
+public class DurationParser {
+
+    private DurationParser() {}
+
+    /**
+     * The pattern to match the duration string.
+     * It matches the digits and the unit.
+     * (\\d+) is the digits, \d represents any digit, + means one or more. () is used to group the digits, meaning the digits are captured and can be accessed later.
+     * \\s* is the whitespace, \s represents any whitespace character, * means zero or more.
+     * ([wdhms]) is the unit, w represents weeks, d represents days, h represents hours, m represents minutes, s represents seconds.
+     */
+<span class="fc" id="L32">    private static final Pattern TOKEN = Pattern.compile(&quot;(\\d+)\\s*([wdhms])&quot;);</span>
+
+    /**
+     * Parses a human-readable duration string into total seconds. 
+     * It supports negative durations with a leading '-'.
+     * It throws an InvalidDurationFormatException if the input is not a valid duration format.
+     *
+     * @param input duration string
+     * @return total seconds (can be negative)
+     * @throws InvalidDurationFormatException if the input is not a valid duration format
+     */
+    public static long parseToTotalSeconds(String input) {
+<span class="fc" id="L44">        String raw = requireNonBlank(input);</span>
+<span class="fc" id="L45">        String s = raw.trim();</span>
+
+<span class="fc" id="L47">        SignAndBody sab = extractLeadingSign(s);</span>
+<span class="fc" id="L48">        String body = sab.body();</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (body.isBlank()) {</span>
+<span class="fc" id="L51">            throw invalid(&quot;Empty duration after sign.&quot;, raw);</span>
+        }
+
+<span class="fc" id="L54">        return parseBodyToSeconds(body, sab.sign(), raw);</span>
+    }
+
+    // ------------------- Core body parsing -------------------
+    /**
+     * Parses the body of the duration string into total seconds.
+     * It throws an InvalidDurationFormatException if the input is not a valid duration format.
+     * @param body the body of the duration string
+     * @param sign the sign of the duration string
+     * @param rawInput the raw input string
+     * @return the total seconds
+     * @throws InvalidDurationFormatException if the input is not a valid duration format
+     */
+    private static long parseBodyToSeconds(String body, int sign, String rawInput) {
+<span class="fc" id="L68">        Matcher matcher = TOKEN.matcher(body);  // matcher can scan the body string for matches of the pattern.</span>
+
+<span class="fc" id="L70">        long totalSeconds = 0L;  // total seconds of the duration string</span>
+<span class="fc" id="L71">        int tokenCount = 0;  // number of tokens in the duration string, judge if the duration string has nothing but whitespace.</span>
+
+        // Track order and duplicates
+<span class="fc" id="L74">        Unit prevUnit = null;  // previous unit, used to check if the units are in descending order w→d→h→m→s.</span>
+<span class="fc" id="L75">        EnumSet&lt;Unit&gt; seen = EnumSet.noneOf(Unit.class);  // set to store the units that have been seen, used to check if the units are duplicated.</span>
+
+<span class="fc" id="L77">        int cursor = 0;  // cursor to track the position of the next token.</span>
+
+        // find() will return true if the matcher finds a match of the pattern in the body string.
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        while (matcher.find()) {</span>
+<span class="fc" id="L81">            tokenCount++;  // find a token, increment the token count.</span>
+
+            // Gap check: only whitespace allowed between tokens
+<span class="fc" id="L84">            requireOnlyWhitespaceBetween(body, cursor, matcher.start(), rawInput);</span>
+
+            // parse the value and unit of the token.
+<span class="fc" id="L87">            long value = parseTokenValue(matcher.group(1), rawInput);</span>
+<span class="fc" id="L88">            Unit unit = parseTokenUnit(matcher.group(2).charAt(0), rawInput);</span>
+
+<span class="fc" id="L90">            requireNotDuplicate(seen, unit, rawInput);  // check if the unit is duplicated.</span>
+<span class="fc" id="L91">            requireDescendingOrder(prevUnit, unit, rawInput);  // check if the units are in descending order.</span>
+
+<span class="fc" id="L93">            totalSeconds = addExactSeconds(totalSeconds, value, unit, rawInput);  // add the value in the given unit to the total seconds.</span>
+            
+            // update the set of seen units and the previous unit.
+<span class="fc" id="L96">            seen.add(unit);  // add the unit to the set of seen units.</span>
+<span class="fc" id="L97">            prevUnit = unit;  // update the previous unit.</span>
+<span class="fc" id="L98">            cursor = matcher.end();  // update the cursor to the next token.</span>
+<span class="fc" id="L99">        }</span>
+
+        // if the duration string has nothing but whitespace, it throws an InvalidDurationFormatException.
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (tokenCount == 0) {</span>
+<span class="fc" id="L103">            throw invalid(&quot;No duration tokens found.&quot;, rawInput);</span>
+        }
+
+        // Trailing gap check: to avoid &quot;2h30mxx&quot; like this.
+<span class="fc" id="L107">        requireOnlyWhitespaceBetween(body, cursor, body.length(), rawInput);</span>
+
+<span class="fc" id="L109">        return applySign(totalSeconds, sign, rawInput);  // apply the sign to the total seconds.</span>
+    }
+
+    // ------------------- Validation helpers -------------------
+
+    /**
+     * Requires that the input is not null and not empty.
+     * @param input the input string
+     * @return the input string
+     * @throws InvalidDurationFormatException if the input is null or empty
+     */
+    private static String requireNonBlank(String input) {
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (input == null) {</span>
+<span class="fc" id="L122">            throw invalid(&quot;Input is null.&quot;, null);</span>
+        }
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (input.trim().isEmpty()) {</span>
+<span class="fc" id="L125">            throw invalid(&quot;Input is empty.&quot;, input);</span>
+        }
+<span class="fc" id="L127">        return input;</span>
+    }
+
+    /**
+     * Extracts the leading sign and body from the input string.
+     * @param s the input string
+     * @return the sign and body
+     */
+    private static SignAndBody extractLeadingSign(String s) {
+<span class="fc" id="L136">        String trimmed = s.trim();</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (trimmed.startsWith(&quot;-&quot;)) {</span>
+<span class="fc" id="L138">            return new SignAndBody(-1, trimmed.substring(1));</span>
+        }
+<span class="fc" id="L140">        return new SignAndBody(1, trimmed);</span>
+    }
+
+    /**
+     * Requires that the only whitespace between the tokens.
+     * @param body the body of the duration string
+     * @param from the start index of the gap
+     * @param to the end index of the gap
+     * @param rawInput the raw input string
+     */
+    private static void requireOnlyWhitespaceBetween(String body, int from, int to, String rawInput) {
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        if (from &gt; to) {</span>
+<span class="nc" id="L152">            throw invalid(&quot;Internal parser error: invalid token boundaries.&quot;, rawInput);</span>
+        }
+<span class="fc" id="L154">        String gap = body.substring(from, to);</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (!gap.isBlank()) {</span>
+<span class="fc" id="L156">            throw invalid(&quot;Invalid characters between tokens: '&quot; + gap + &quot;'&quot;, rawInput);</span>
+        }
+<span class="fc" id="L158">    }</span>
+
+    /**
+     * Parses the value of the token.
+     * @param digits the digits of the token
+     * @param rawInput the raw input string
+     * @return the value of the token
+     */
+    private static long parseTokenValue(String digits, String rawInput) {
+        // TOKEN ensures digits only, so decimals are already excluded.
+        try {
+<span class="fc" id="L169">            return Long.parseLong(digits);</span>
+<span class="fc" id="L170">        } catch (NumberFormatException e) {</span>
+<span class="fc" id="L171">            throw invalid(&quot;Duration value is too large: &quot; + digits, rawInput);</span>
+        }
+    }
+
+    /**
+     * Parses the unit of the token.
+     * @param unitChar the unit character
+     * @param rawInput the raw input string
+     * @return the unit of the token
+     */
+    private static Unit parseTokenUnit(char unitChar, String rawInput) {
+<span class="fc" id="L182">        Unit unit = Unit.fromChar(unitChar);</span>
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">        if (unit == null) {</span>
+<span class="nc" id="L184">            throw invalid(&quot;Invalid duration unit: &quot; + unitChar, rawInput);</span>
+        }
+<span class="fc" id="L186">        return unit;</span>
+    }
+
+    /**
+     * Requires that the unit is not duplicated. If the unit is duplicated, it throws an InvalidDurationFormatException.
+     * @param seen the set of units that have been seen
+     * @param unit the unit to check
+     * @param rawInput the raw input string
+     */
+    private static void requireNotDuplicate(EnumSet&lt;Unit&gt; seen, Unit unit, String rawInput) {
+<span class="fc" id="L196">        Objects.requireNonNull(seen, &quot;seen&quot;);</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (seen.contains(unit)) {</span>
+<span class="fc" id="L198">            throw invalid(&quot;Duplicate unit: &quot; + unit.symbol, rawInput);</span>
+        }
+<span class="fc" id="L200">    }</span>
+
+    /**
+     * Requires that the units are in descending order. If the units are not in descending order, it throws an InvalidDurationFormatException.
+     * @param prev the previous unit
+     * @param next the next unit
+     * @param rawInput the raw input string
+     */
+    private static void requireDescendingOrder(Unit prev, Unit next, String rawInput) {
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        if (prev == null) return;</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">        if (next.rank &gt;= prev.rank) {</span>
+<span class="fc" id="L211">            throw invalid(&quot;Units must be in descending order (w d h m s).&quot;, rawInput);</span>
+        }
+<span class="fc" id="L213">    }</span>
+
+    
+    // ------------------- Math helpers -------------------
+
+    /**
+     * Adds the value in the given unit to the total seconds. 
+     * It uses Math.multiplyExact and Math.addExact to avoid overflow.
+     * It throws an InvalidDurationFormatException if the duration is too large (overflow).
+     * The specifical logic is: totalSeconds + value * unit.secondsFactor.
+     * 
+     * @param totalSeconds the total seconds
+     * @param value the value to add
+     * @param unit the unit of the value
+     * @param rawInput the raw input string
+     * @return the total seconds
+     */
+    private static long addExactSeconds(long totalSeconds, long value, Unit unit, String rawInput) {
+        // Convert value in given unit to seconds with overflow checks.
+        long secondsToAdd;
+        try {
+<span class="fc" id="L234">            secondsToAdd = Math.multiplyExact(value, unit.secondsFactor);</span>
+<span class="fc" id="L235">            return Math.addExact(totalSeconds, secondsToAdd);</span>
+<span class="nc" id="L236">        } catch (ArithmeticException e) {</span>
+<span class="nc" id="L237">            throw invalid(&quot;Duration is too large (overflow).&quot;, rawInput);</span>
+        }
+    }
+
+    /**
+     * Applies the sign to the total seconds.
+     * @param totalSeconds the total seconds
+     * @param sign the sign to apply
+     * @param rawInput the raw input string
+     * @return the total seconds
+     */
+    private static long applySign(long totalSeconds, int sign, String rawInput) {
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        if (sign == 1) return totalSeconds;</span>
+        try {
+<span class="fc" id="L251">            return Math.multiplyExact(totalSeconds, -1L);</span>
+<span class="nc" id="L252">        } catch (ArithmeticException e) {</span>
+<span class="nc" id="L253">            throw invalid(&quot;Duration is too large (overflow).&quot;, rawInput);</span>
+        }
+    }
+
+
+    // ------------------- Error handling -------------------
+
+    private static InvalidDurationFormatException invalid(String message, String rawInput) {
+<span class="fc bfc" id="L261" title="All 2 branches covered.">        String suffix = (rawInput == null) ? &quot;&quot; : &quot; Input: '&quot; + rawInput + &quot;'&quot;;</span>
+<span class="fc" id="L262">        return new InvalidDurationFormatException(message + suffix);</span>
+    }
+
+    // ------------------- Supporting types -------------------
+    /**
+     * A record that contains the sign and body of the duration string.
+     * @param sign the sign of the duration string
+     * @param body the body of the duration string
+     */
+<span class="fc" id="L271">    private record SignAndBody(int sign, String body) {}</span>
+
+    /**
+     * An enum that represents the units of the duration string.
+     * @param symbol the symbol of the unit
+     * @param rank the rank of the unit
+     * @param secondsFactor the seconds factor of the unit
+     */
+<span class="fc" id="L279">    private enum Unit {</span>
+<span class="fc" id="L280">        W('w', 5, 7L * 24L * 3600L),</span>
+<span class="fc" id="L281">        D('d', 4, 24L * 3600L),</span>
+<span class="fc" id="L282">        H('h', 3, 3600L),</span>
+<span class="fc" id="L283">        M('m', 2, 60L),</span>
+<span class="fc" id="L284">        S('s', 1, 1L);</span>
+
+        final char symbol;
+        final int rank; // bigger rank = larger unit
+        final long secondsFactor;
+
+        // constructor of the Unit enum.
+<span class="fc" id="L291">        Unit(char symbol, int rank, long secondsFactor) {</span>
+<span class="fc" id="L292">            this.symbol = symbol;</span>
+<span class="fc" id="L293">            this.rank = rank;</span>
+<span class="fc" id="L294">            this.secondsFactor = secondsFactor;</span>
+<span class="fc" id="L295">        }</span>
+
+        /**
+         * Converts a character to a Unit enum.
+         * @param c the character to convert
+         * @return the Unit enum
+         */
+        static Unit fromChar(char c) {
+<span class="pc bpc" id="L303" title="1 of 6 branches missed.">            return switch (c) {</span>
+<span class="fc" id="L304">                case 'w' -&gt; W;</span>
+<span class="fc" id="L305">                case 'd' -&gt; D;</span>
+<span class="fc" id="L306">                case 'h' -&gt; H;</span>
+<span class="fc" id="L307">                case 'm' -&gt; M;</span>
+<span class="fc" id="L308">                case 's' -&gt; S;</span>
+<span class="nc" id="L309">                default -&gt; null;</span>
+            };
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

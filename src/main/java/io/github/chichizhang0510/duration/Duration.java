@@ -3,6 +3,7 @@ package io.github.chichizhang0510.duration;
 import io.github.chichizhang0510.duration.internal.DurationParser;
 import io.github.chichizhang0510.duration.internal.DurationFormatter;
 import io.github.chichizhang0510.duration.internal.DurationMath;
+import io.github.chichizhang0510.duration.exception.InvalidDurationFormatException;
 
 import java.util.Objects;
 
@@ -162,7 +163,7 @@ public final class Duration implements Comparable<Duration> {
      */
     public static Duration fromMilliseconds(long milliseconds) {
         if (milliseconds % 1000L != 0L) {
-            throw new IllegalArgumentException("Milliseconds must be a multiple of 1000 (no fractional seconds).");
+            throw new InvalidDurationFormatException("Milliseconds must be a multiple of 1000 (no fractional seconds).");
         }
         return new Duration(milliseconds / 1000L);
     }
