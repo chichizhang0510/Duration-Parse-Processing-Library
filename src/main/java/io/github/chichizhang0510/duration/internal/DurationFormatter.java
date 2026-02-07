@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Utility class for formatting durations.
+ */
 public class DurationFormatter {
 
     /**
@@ -13,6 +16,11 @@ public class DurationFormatter {
      */
     private DurationFormatter() {}
 
+    /**
+     * Converts a duration to a normalized string.
+     * @param duration the duration
+     * @return the normalized string
+     */
     public static String toNormalizedString(Duration duration) {
         Objects.requireNonNull(duration, "duration");
 

@@ -257,6 +257,12 @@ public class DurationParser {
 
     // ------------------- Error handling -------------------
 
+    /**
+     * Creates an InvalidDurationFormatException with a message and a raw input.
+     * @param message the message
+     * @param rawInput the raw input
+     * @return the InvalidDurationFormatException
+     */
     private static InvalidDurationFormatException invalid(String message, String rawInput) {
         String suffix = (rawInput == null) ? "" : " Input: '" + rawInput + "'";
         return new InvalidDurationFormatException(message + suffix);

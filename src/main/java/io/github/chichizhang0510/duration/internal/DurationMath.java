@@ -5,6 +5,9 @@ import io.github.chichizhang0510.duration.exception.InvalidDurationFormatExcepti
 
 import java.util.Objects;
 
+/**
+ * Utility class for arithmetic operations on durations.
+ */
 public class DurationMath {
 
     private DurationMath() {}
