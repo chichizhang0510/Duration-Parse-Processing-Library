@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: "maven"
+
+      - name: Build + Test + Quality Gates (verify)
+        run: mvn -B -ntp clean verify
+
+      # （可选）单独再跑一次 javadoc:javadoc，确保命令在 CI 上也可运行
+      - name: Generate Javadoc
+        run: mvn -B -ntp javadoc:javadoc
+
+      - name: Package JAR
+        run: mvn -B -ntp -DskipTests package
+
+      # -------- Upload artifacts (reports) --------
+      - name: Upload JaCoCo report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/
+
+      - name: Upload Javadoc
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: javadoc
+          path: target/site/apidocs/
+
+      - name: Upload Checkstyle report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle
+          path: |
+            target/site/checkstyle.html
+            target/checkstyle-result.xml
+
+      - name: Upload SpotBugs report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spotbugs
+          path: |
+            target/spotbugsXml.xml
+            target/spotbugs.html
+
+      - name: Upload Surefire reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+
+      - name: Upload JAR
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jar
+          path: target/*.jar
