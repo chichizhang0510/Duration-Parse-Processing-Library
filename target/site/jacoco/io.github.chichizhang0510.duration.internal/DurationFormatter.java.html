@@ -1,115 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DurationFormatter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Human Duration</a> &gt; <a href="index.source.html" class="el_package">io.github.chichizhang0510.duration.internal</a> &gt; <span class="el_source">DurationFormatter.java</span></div><h1>DurationFormatter.java</h1><pre class="source lang-java linenums">package io.github.chichizhang0510.duration.internal;
 
 import io.github.chichizhang0510.duration.Duration;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/** Utility class for formatting durations. */
 public class DurationFormatter {
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private DurationFormatter() {}
+  /** Private constructor to prevent instantiation. */
+  private DurationFormatter() {}
 
-    public static String toNormalizedString(Duration duration) {
-<span class="fc" id="L17">        Objects.requireNonNull(duration, &quot;duration&quot;);</span>
+  /**
+   * Converts a duration to a normalized string.
+   *
+   * @param duration the duration
+   * @return the normalized string
+   */
+  public static String toNormalizedString(Duration duration) {
+<span class="fc" id="L21">    Objects.requireNonNull(duration, &quot;duration&quot;);</span>
 
-<span class="fc" id="L19">        long totalSeconds = extractTotalSeconds(duration);</span>
-<span class="fc" id="L20">        DurationNormalizer.NormalizedParts p = DurationNormalizer.normalize(totalSeconds);</span>
+<span class="fc" id="L23">    long totalSeconds = extractTotalSeconds(duration);</span>
+<span class="fc" id="L24">    DurationNormalizer.NormalizedParts p = DurationNormalizer.normalize(totalSeconds);</span>
 
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (p.isZero()) {</span>
-<span class="fc" id="L23">            return &quot;0s&quot;;</span>
-        }
-
-<span class="fc" id="L26">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (p.isNegative()) {</span>
-<span class="fc" id="L28">            sb.append('-');</span>
-        }
-
-        // Append in canonical order, skipping zeros
-<span class="fc" id="L32">        appendUnit(sb, p.weeks(), 'w');</span>
-<span class="fc" id="L33">        appendUnit(sb, p.days(), 'd');</span>
-<span class="fc" id="L34">        appendUnit(sb, p.hours(), 'h');</span>
-<span class="fc" id="L35">        appendUnit(sb, p.minutes(), 'm');</span>
-<span class="fc" id="L36">        appendUnit(sb, p.seconds(), 's');</span>
-
-        // Safety: if everything was zero (shouldn't happen due to isZero), return 0s
-<span class="pc bpc" id="L39" title="2 of 4 branches missed.">        return sb.length() == 0 || sb.toString().equals(&quot;-&quot;) ? &quot;0s&quot; : sb.toString();</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">    if (p.isZero()) {</span>
+<span class="fc" id="L27">      return &quot;0s&quot;;</span>
     }
 
-    /**
-     * Formats a duration to a human-readable string.
-     * @param duration the duration
-     * @return the human-readable string
-     */
-    public static String format(Duration duration) {
-<span class="fc" id="L48">        Objects.requireNonNull(duration, &quot;duration&quot;);</span>
-
-<span class="fc" id="L50">        long totalSeconds = extractTotalSeconds(duration);</span>
-<span class="fc" id="L51">        DurationNormalizer.NormalizedParts p = DurationNormalizer.normalize(totalSeconds);</span>
-
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (p.isZero()) {</span>
-<span class="fc" id="L54">            return &quot;0 seconds&quot;;</span>
-        }
-
-<span class="fc" id="L57">        List&lt;String&gt; parts = new ArrayList&lt;&gt;(5);</span>
-
-        // Build parts in canonical order, skipping zeros
-<span class="fc" id="L60">        addHumanPart(parts, p.weeks(), &quot;week&quot;);</span>
-<span class="fc" id="L61">        addHumanPart(parts, p.days(), &quot;day&quot;);</span>
-<span class="fc" id="L62">        addHumanPart(parts, p.hours(), &quot;hour&quot;);</span>
-<span class="fc" id="L63">        addHumanPart(parts, p.minutes(), &quot;minute&quot;);</span>
-<span class="fc" id="L64">        addHumanPart(parts, p.seconds(), &quot;second&quot;);</span>
-
-<span class="fc" id="L66">        String joined = String.join(&quot; &quot;, parts);</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        return p.isNegative() ? &quot;-&quot; + joined : joined;</span>
+<span class="fc" id="L30">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">    if (p.isNegative()) {</span>
+<span class="fc" id="L32">      sb.append('-');</span>
     }
 
+    // Append in canonical order, skipping zeros
+<span class="fc" id="L36">    appendUnit(sb, p.weeks(), 'w');</span>
+<span class="fc" id="L37">    appendUnit(sb, p.days(), 'd');</span>
+<span class="fc" id="L38">    appendUnit(sb, p.hours(), 'h');</span>
+<span class="fc" id="L39">    appendUnit(sb, p.minutes(), 'm');</span>
+<span class="fc" id="L40">    appendUnit(sb, p.seconds(), 's');</span>
 
-    // ------------------- Helpers -------------------
+    // Safety: if everything was zero (shouldn't happen due to isZero), return 0s
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">    return sb.length() == 0 || sb.toString().equals(&quot;-&quot;) ? &quot;0s&quot; : sb.toString();</span>
+  }
 
-    /**
-     * Extracts the total seconds from a duration.
-     * @param duration the duration
-     * @return the total seconds
-     */
-    private static long extractTotalSeconds(Duration duration) {
-<span class="fc" id="L79">        return duration.toSeconds();</span>
+  /**
+   * Formats a duration to a human-readable string.
+   *
+   * @param duration the duration
+   * @return the human-readable string
+   */
+  public static String format(Duration duration) {
+<span class="fc" id="L53">    Objects.requireNonNull(duration, &quot;duration&quot;);</span>
+
+<span class="fc" id="L55">    long totalSeconds = extractTotalSeconds(duration);</span>
+<span class="fc" id="L56">    DurationNormalizer.NormalizedParts p = DurationNormalizer.normalize(totalSeconds);</span>
+
+<span class="fc bfc" id="L58" title="All 2 branches covered.">    if (p.isZero()) {</span>
+<span class="fc" id="L59">      return &quot;0 seconds&quot;;</span>
     }
 
-    /**
-     * Appends a unit to a StringBuilder.
-     * @param sb the StringBuilder
-     * @param value the value
-     * @param unitSymbol the unit symbol
-     */
-    private static void appendUnit(StringBuilder sb, long value, char unitSymbol) {
-<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (value &lt;= 0) return;</span>
-<span class="fc" id="L90">        sb.append(value).append(unitSymbol);</span>
-<span class="fc" id="L91">    }</span>
+<span class="fc" id="L62">    List&lt;String&gt; parts = new ArrayList&lt;&gt;(5);</span>
 
-    /**
-     * Adds a human part to a list.
-     * @param parts the list
-     * @param value the value
-     * @param unitBase the unit base
-     */
-    private static void addHumanPart(List&lt;String&gt; parts, long value, String unitBase) {
-<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (value &lt;= 0) return;</span>
-<span class="fc" id="L101">        parts.add(value + &quot; &quot; + pluralize(unitBase, value));</span>
-<span class="fc" id="L102">    }</span>
+    // Build parts in canonical order, skipping zeros
+<span class="fc" id="L65">    addHumanPart(parts, p.weeks(), &quot;week&quot;);</span>
+<span class="fc" id="L66">    addHumanPart(parts, p.days(), &quot;day&quot;);</span>
+<span class="fc" id="L67">    addHumanPart(parts, p.hours(), &quot;hour&quot;);</span>
+<span class="fc" id="L68">    addHumanPart(parts, p.minutes(), &quot;minute&quot;);</span>
+<span class="fc" id="L69">    addHumanPart(parts, p.seconds(), &quot;second&quot;);</span>
 
-    /**
-     * Pluralizes a unit base.
-     * @param unitBase the unit base
-     * @param value the value
-     * @return the pluralized unit base
-     */
-    private static String pluralize(String unitBase, long value) {
-<span class="fc bfc" id="L111" title="All 2 branches covered.">        return value == 1 ? unitBase : unitBase + &quot;s&quot;;</span>
+<span class="fc" id="L71">    String joined = String.join(&quot; &quot;, parts);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">    return p.isNegative() ? &quot;-&quot; + joined : joined;</span>
+  }
+
+  // ------------------- Helpers -------------------
+
+  /**
+   * Extracts the total seconds from a duration.
+   *
+   * @param duration the duration
+   * @return the total seconds
+   */
+  private static long extractTotalSeconds(Duration duration) {
+<span class="fc" id="L84">    return duration.toSeconds();</span>
+  }
+
+  /**
+   * Appends a unit to a StringBuilder.
+   *
+   * @param sb the StringBuilder
+   * @param value the value
+   * @param unitSymbol the unit symbol
+   */
+  private static void appendUnit(StringBuilder sb, long value, char unitSymbol) {
+<span class="fc bfc" id="L95" title="All 2 branches covered.">    if (value &lt;= 0) {</span>
+<span class="fc" id="L96">      return;</span>
     }
+<span class="fc" id="L98">    sb.append(value).append(unitSymbol);</span>
+<span class="fc" id="L99">  }</span>
 
+  /**
+   * Adds a human part to a list.
+   *
+   * @param parts the list
+   * @param value the value
+   * @param unitBase the unit base
+   */
+  private static void addHumanPart(List&lt;String&gt; parts, long value, String unitBase) {
+<span class="fc bfc" id="L109" title="All 2 branches covered.">    if (value &lt;= 0) {</span>
+<span class="fc" id="L110">      return;</span>
+    }
+<span class="fc" id="L112">    parts.add(value + &quot; &quot; + pluralize(unitBase, value));</span>
+<span class="fc" id="L113">  }</span>
+
+  /**
+   * Pluralizes a unit base.
+   *
+   * @param unitBase the unit base
+   * @param value the value
+   * @return the pluralized unit base
+   */
+  private static String pluralize(String unitBase, long value) {
+<span class="fc bfc" id="L123" title="All 2 branches covered.">    return value == 1 ? unitBase : unitBase + &quot;s&quot;;</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

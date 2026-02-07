@@ -1,10 +1,10 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Human Duration,io.github.chichizhang0510.duration.exception,InvalidDurationFormatException,0,9,0,0,0,4,0,2,0,2
-Human Duration,io.github.chichizhang0510.duration.internal,DurationNormalizer,0,74,0,6,0,17,0,6,0,3
+Human Duration,io.github.chichizhang0510.duration.internal,DurationNormalizer,0,74,0,6,0,18,0,6,0,3
 Human Duration,io.github.chichizhang0510.duration.internal,DurationNormalizer.NormalizedParts,0,67,0,12,0,4,0,10,0,4
 Human Duration,io.github.chichizhang0510.duration.internal,DurationParser.SignAndBody,0,9,0,0,0,1,0,1,0,1
-Human Duration,io.github.chichizhang0510.duration.internal,DurationParser,19,239,2,26,6,64,2,25,0,13
+Human Duration,io.github.chichizhang0510.duration.internal,DurationParser,19,239,2,26,6,68,2,25,0,13
 Human Duration,io.github.chichizhang0510.duration.internal,DurationMath,0,59,0,0,0,15,0,5,0,5
 Human Duration,io.github.chichizhang0510.duration.internal,DurationParser.Unit,1,75,1,5,1,17,1,7,0,3
-Human Duration,io.github.chichizhang0510.duration.internal,DurationFormatter,2,157,2,16,0,35,2,13,0,6
-Human Duration,io.github.chichizhang0510.duration,Duration,2,154,1,5,0,33,1,25,0,23
+Human Duration,io.github.chichizhang0510.duration.internal,DurationFormatter,2,157,2,16,0,37,2,13,0,6
+Human Duration,io.github.chichizhang0510.duration,Duration,2,154,1,5,1,33,1,25,0,23

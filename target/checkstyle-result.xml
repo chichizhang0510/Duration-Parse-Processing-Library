@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="10.12.7">
+<file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/Duration.java">
+</file>
 <file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationNormalizer.java">
+</file>
+<file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationFormatter.java">
+</file>
+<file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationParser.java">
+</file>
+<file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationMath.java">
+</file>
+<file name="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/exception/InvalidDurationFormatException.java">
 </file>
 </checkstyle>

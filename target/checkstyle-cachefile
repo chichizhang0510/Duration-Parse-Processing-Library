@@ -1,4 +1,4 @@
-#Fri Feb 06 23:12:04 PST 2026
+#Fri Feb 06 23:19:42 PST 2026
 /Users/chichizhang/Desktop/NEU\ class\ notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/Duration.java=1770448213303
 /Users/chichizhang/Desktop/NEU\ class\ notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/exception/InvalidDurationFormatException.java=1770447812986
 /Users/chichizhang/Desktop/NEU\ class\ notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationFormatter.java=1770448213303
@@ -6,5 +6,5 @@
 /Users/chichizhang/Desktop/NEU\ class\ notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationNormalizer.java=1770448317869
 /Users/chichizhang/Desktop/NEU\ class\ notes/2.devops/hw1/src/main/java/io/github/chichizhang0510/duration/internal/DurationParser.java=1770448213304
 configuration*?=863EC8BDB32455635024538650A316643C26C0EF
-module-resource*?\:checkstyle-suppressions.xml=3FA4318461F3B669D53C21104A0858E8A9696821
-module-resource*?\:checkstyle-xpath-suppressions.xml=C6978FD56846A4499E8E7972C1CD1487B563F7D2
+module-resource*?\:checkstyle-suppressions.xml=7131B536529256FACC5656DA32629F9A96B7457D
+module-resource*?\:checkstyle-xpath-suppressions.xml=DA996FC1EA29B498ABD60BD5D7C06A6CFB22EB4E

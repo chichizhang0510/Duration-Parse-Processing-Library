@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.github.chichizhang0510.duration"},{"l":"io.github.chichizhang0510.duration.exception"},{"l":"io.github.chichizhang0510.duration.internal"}];updateSearchResults();

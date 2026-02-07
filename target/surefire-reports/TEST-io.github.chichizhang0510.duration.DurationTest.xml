@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="io.github.chichizhang0510.duration.DurationTest" time="0.017" tests="37" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="io.github.chichizhang0510.duration.DurationTest" time="0.021" tests="37" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206223719450_3.jar /Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire 2026-02-06T22-37-19_412-jvmRun1 surefire-20260206223719450_1tmp surefire_0-20260206223719450_2tmp"/>
+    <property name="sun.java.command" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206231940456_3.jar /Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire 2026-02-06T23-19-40_416-jvmRun1 surefire-20260206231940456_1tmp surefire_0-20260206231940456_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/test-classes:/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/classes:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:/Users/chichizhang/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/chichizhang/.m2/repository/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar:/Users/chichizhang/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.0/junit-jupiter-params-5.10.0.jar:/Users/chichizhang/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar:/Users/chichizhang/.m2/repository/org/junit/platform/junit-platform-engine/1.10.0/junit-platform-engine-1.10.0.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206223719450_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/chichizhang/Desktop/NEU class notes/2.devops/hw1/target/surefire/surefirebooter-20260206231940456_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21.0.7"/>
@@ -58,41 +58,41 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="constructor_rejectsGarbageBetweenTokens" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="toString_returnsNormalizedCompactForm" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="constructor_rejectsEmptyString" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
+  <testcase name="constructor_rejectsGarbageBetweenTokens" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="toString_returnsNormalizedCompactForm" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="constructor_rejectsEmptyString" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="hashCode_isStable" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="totalSeconds_returnsInternalValue" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="conversions_returnTotalValues" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="fromHours_createsCorrectDuration" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="toWeeks_negativeWorks" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
+  <testcase name="toWeeks_negativeWorks" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="toWeeks_returnsTotalWeeks_truncated" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="normalizedString_90mBecomes1h30m" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="constructor_rejectsDecimals" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="constructor_rejectsDecimals" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="fromWeeks_createsCorrectDuration" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="normalizedString_25hBecomes1d1h" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="add_returnsNewDuration_andDoesNotMutateOriginal" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
+  <testcase name="add_returnsNewDuration_andDoesNotMutateOriginal" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="equals_sameReference_isTrue" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="constructor_rejectsWrongOrder" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="constructor_rejectsWrongOrder" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="normalizedString_negative90sBecomesNegative1m30s" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="format_isHumanReadableWithPluralization" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="equals_sameValueDifferentConstruction_isTrue" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="format_isHumanReadableWithPluralization" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="equals_sameValueDifferentConstruction_isTrue" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="constructor_rejectsInvalidUnit" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="equals_null_isFalse" classname="io.github.chichizhang0510.duration.DurationTest" time="0.002"/>
+  <testcase name="equals_null_isFalse" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="constructor_parsesCombinedWithoutSpaces" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="equals_differentType_isFalse" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="compareTo_ordersByTotalSeconds" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="constructor_parsesNegative" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="constructor_rejectsDuplicateUnits" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="constructor_rejectsDuplicateUnits" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="constructor_rejectsNull" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="constructor_parsesCombinedWithSpaces" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="normalizedString_90sBecomes1m30s" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="normalizedString_8dBecomes1w1d" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="subtract_canProduceNegative" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
+  <testcase name="subtract_canProduceNegative" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="equals_differentValue_isFalse" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="fromDays_createsCorrectDuration" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
+  <testcase name="fromDays_createsCorrectDuration" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
   <testcase name="factories_fromSecondsAndMinutes" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
   <testcase name="constructor_parsesZero" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="factory_fromMilliseconds_acceptsWholeSecondsOnly" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
-  <testcase name="conversions_acrossDays" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="factory_fromMilliseconds_acceptsWholeSecondsOnly" classname="io.github.chichizhang0510.duration.DurationTest" time="0.001"/>
+  <testcase name="conversions_acrossDays" classname="io.github.chichizhang0510.duration.DurationTest" time="0.0"/>
 </testsuite>

@@ -2,103 +2,96 @@
 
 import io.github.chichizhang0510.duration.exception.InvalidDurationFormatException;
 
-/**
- * Utility class for normalizing a total seconds to a normalized parts.
- */
+/** Utility class for normalizing a total seconds to a normalized parts. */
 public class DurationNormalizer {
 
-    private static final long SEC_PER_MIN = 60L;
-    private static final long SEC_PER_HOUR = 60L * 60L;
-    private static final long SEC_PER_DAY = 24L * 60L * 60L;
-    private static final long SEC_PER_WEEK = 7L * 24L * 60L * 60L;
+  private static final long SEC_PER_MIN = 60L;
+  private static final long SEC_PER_HOUR = 60L * 60L;
+  private static final long SEC_PER_DAY = 24L * 60L * 60L;
+  private static final long SEC_PER_WEEK = 7L * 24L * 60L * 60L;
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private DurationNormalizer() {}
+  /** Private constructor to prevent instantiation. */
+  private DurationNormalizer() {}
 
-    /**
-     * Normalizes a total seconds to a normalized parts.
-     * @param totalSeconds the total seconds
-     * @return the normalized parts
-     */
-    public static NormalizedParts normalize(long totalSeconds) {
-<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (totalSeconds == 0L) {</span>
-<span class="fc" id="L27">            return NormalizedParts.zero();</span>
-        }
-
-<span class="fc" id="L30">        int sign = signOf(totalSeconds);</span>
-
-        // Handle Long.MIN_VALUE safely (Math.abs(Long.MIN_VALUE) overflows)
-<span class="fc" id="L33">        long absSeconds = safeAbs(totalSeconds);</span>
-
-<span class="fc" id="L35">        long weeks = absSeconds / SEC_PER_WEEK;</span>
-<span class="fc" id="L36">        absSeconds %= SEC_PER_WEEK;</span>
-
-<span class="fc" id="L38">        long days = absSeconds / SEC_PER_DAY;</span>
-<span class="fc" id="L39">        absSeconds %= SEC_PER_DAY;</span>
-
-<span class="fc" id="L41">        long hours = absSeconds / SEC_PER_HOUR;</span>
-<span class="fc" id="L42">        absSeconds %= SEC_PER_HOUR;</span>
-
-<span class="fc" id="L44">        long minutes = absSeconds / SEC_PER_MIN;</span>
-<span class="fc" id="L45">        long seconds = absSeconds % SEC_PER_MIN;</span>
-
-<span class="fc" id="L47">        return new NormalizedParts(sign, weeks, days, hours, minutes, seconds);</span>
+  /**
+   * Normalizes a total seconds to a normalized parts.
+   *
+   * @param totalSeconds the total seconds
+   * @return the normalized parts
+   */
+  public static NormalizedParts normalize(long totalSeconds) {
+<span class="fc bfc" id="L23" title="All 2 branches covered.">    if (totalSeconds == 0L) {</span>
+<span class="fc" id="L24">      return NormalizedParts.zero();</span>
     }
 
-    /**
-     * Returns the sign of a value.
-     * @param value the value
-     * @return the sign
-     */
-    private static int signOf(long value) {
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        return value &lt; 0L ? -1 : 1;</span>
+<span class="fc" id="L27">    final int sign = signOf(totalSeconds);</span>
+<span class="fc" id="L28">    long absSeconds =</span>
+<span class="fc" id="L29">        safeAbs(totalSeconds); // Handle Long.MIN_VALUE safely (Math.abs(Long.MIN_VALUE) overflows)</span>
+
+<span class="fc" id="L31">    final long weeks = absSeconds / SEC_PER_WEEK;</span>
+<span class="fc" id="L32">    absSeconds %= SEC_PER_WEEK;</span>
+
+<span class="fc" id="L34">    final long days = absSeconds / SEC_PER_DAY;</span>
+<span class="fc" id="L35">    absSeconds %= SEC_PER_DAY;</span>
+
+<span class="fc" id="L37">    final long hours = absSeconds / SEC_PER_HOUR;</span>
+<span class="fc" id="L38">    absSeconds %= SEC_PER_HOUR;</span>
+
+<span class="fc" id="L40">    final long minutes = absSeconds / SEC_PER_MIN;</span>
+<span class="fc" id="L41">    final long seconds = absSeconds % SEC_PER_MIN;</span>
+
+<span class="fc" id="L43">    return new NormalizedParts(sign, weeks, days, hours, minutes, seconds);</span>
+  }
+
+  /**
+   * Returns the sign of a value.
+   *
+   * @param value the value
+   * @return the sign
+   */
+  private static int signOf(long value) {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    return value &lt; 0L ? -1 : 1;</span>
+  }
+
+  /**
+   * Returns the absolute value of a value.
+   *
+   * @param value the value
+   * @return the absolute value
+   */
+  private static long safeAbs(long value) {
+<span class="fc bfc" id="L63" title="All 2 branches covered.">    if (value == Long.MIN_VALUE) {</span>
+      // This is extremely unlikely in normal usage, but we fail deterministically.
+      // You could also choose to saturate, but throwing is clearer.
+<span class="fc" id="L66">      throw new InvalidDurationFormatException(&quot;Duration is too large to normalize (overflow).&quot;);</span>
+    }
+<span class="fc" id="L68">    return Math.abs(value);</span>
+  }
+
+  /**
+   * A record that contains the normalized parts.
+   *
+   * @param sign the sign of the normalized parts
+   * @param weeks the number of weeks
+   * @param days the number of days
+   * @param hours the number of hours
+   * @param minutes the number of minutes
+   * @param seconds the number of seconds
+   */
+<span class="fc" id="L81">  public record NormalizedParts(</span>
+      int sign, long weeks, long days, long hours, long minutes, long seconds) {
+
+    public static NormalizedParts zero() {
+<span class="fc" id="L85">      return new NormalizedParts(1, 0L, 0L, 0L, 0L, 0L);</span>
     }
 
-    /**
-     * Returns the absolute value of a value.
-     * @param value the value
-     * @return the absolute value
-     */
-    private static long safeAbs(long value) {
-<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (value == Long.MIN_VALUE) {</span>
-            // This is extremely unlikely in normal usage, but we fail deterministically.
-            // You could also choose to saturate, but throwing is clearer.
-<span class="fc" id="L68">            throw new InvalidDurationFormatException(&quot;Duration is too large to normalize (overflow).&quot;);</span>
-        }
-<span class="fc" id="L70">        return Math.abs(value);</span>
+    public boolean isZero() {
+<span class="fc bfc" id="L89" title="All 10 branches covered.">      return weeks == 0 &amp;&amp; days == 0 &amp;&amp; hours == 0 &amp;&amp; minutes == 0 &amp;&amp; seconds == 0;</span>
     }
 
-    /**
-     * A record that contains the normalized parts.
-     * @param sign the sign of the normalized parts
-     * @param weeks the number of weeks
-     * @param days the number of days
-     * @param hours the number of hours
-     * @param minutes the number of minutes
-     * @param seconds the number of seconds
-     */
-<span class="fc" id="L82">    public record NormalizedParts(</span>
-                int sign,
-                long weeks,
-                long days,
-                long hours,
-                long minutes,
-                long seconds
-        ) {
-
-            public static NormalizedParts zero() {
-<span class="fc" id="L92">                return new NormalizedParts(1, 0L, 0L, 0L, 0L, 0L);</span>
-            }
-
-            public boolean isZero() {
-<span class="fc bfc" id="L96" title="All 10 branches covered.">                return weeks == 0 &amp;&amp; days == 0 &amp;&amp; hours == 0 &amp;&amp; minutes == 0 &amp;&amp; seconds == 0;</span>
-            }
-
-            public boolean isNegative() {
-<span class="fc bfc" id="L100" title="All 2 branches covered.">                return sign &lt; 0;</span>
-            }
-        }
+    public boolean isNegative() {
+<span class="fc bfc" id="L93" title="All 2 branches covered.">      return sign &lt; 0;</span>
+    }
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
