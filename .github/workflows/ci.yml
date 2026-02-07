@@ -25,9 +25,8 @@ jobs:
           cache: "maven"
 
       - name: Build + Test + Quality Gates (verify)
-        run: mvn -B -ntp clean verify
+        run: mvn -B -ntp -e -X -DtrimStackTrace=false clean verify
 
-      # （可选）单独再跑一次 javadoc:javadoc，确保命令在 CI 上也可运行
       - name: Generate Javadoc
         run: mvn -B -ntp javadoc:javadoc
 
